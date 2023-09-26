@@ -64,18 +64,18 @@ public class BazaarNotifierCommand extends CommandBase {
             } else {
               player.addChatMessage(new ChatComponentText(
                   BazaarNotifier.prefix + EnumChatFormatting.RED
-                      + "Your API key is invalid." + apiMessage));
+                      + "Your API key is invalid.").appendSibling(apiMessage));
             }
           } catch (IOException e) {
             player.addChatMessage(new ChatComponentText(
                 BazaarNotifier.prefix + EnumChatFormatting.RED
-                    + "An error occurred when trying to set your API key." + apiMessage));
+                    + "An error occurred when trying to set your API key.").appendSibling(apiMessage));
             e.printStackTrace();
           }
         } else {
           player.addChatMessage(new ChatComponentText(
               BazaarNotifier.prefix + EnumChatFormatting.RED
-                  + "Run /bn api (key) to set your API key. Do /api if you need to get your API key." + apiMessage));
+                  + "Run /bn api (key) to set your API key. Do /api if you need to get your API key.").appendSibling(apiMessage));
         }
       } else if (args.length > 0 && args[0].equalsIgnoreCase("reset")) {
         if (args.length == 1 || args[1].equalsIgnoreCase("all")) {

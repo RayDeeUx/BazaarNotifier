@@ -104,7 +104,7 @@ public class SettingsGui extends GuiScreen {
         apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
             BazaarNotifier.prefix + EnumChatFormatting.RED
-                + "Your API key was not saved because it was invalid." + apiMessage));
+                + "Your API key was not saved because it was invalid.").appendSibling(apiMessage));
       }
 
     } catch (IOException e) {

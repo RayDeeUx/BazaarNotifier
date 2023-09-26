@@ -108,8 +108,7 @@ public class ModuleSettingsGui extends GuiScreen {
             Minecraft.getMinecraft().thePlayer
                 .addChatMessage(new ChatComponentText(BazaarNotifier.prefix +
                     EnumChatFormatting.RED
-                    + "There was an error while enabling the collections check.\n" +
-                    apiMessage));
+                    + "There was an error while enabling the collections check.\n").appendSibling(apiMessage));
           }
         }).start();
       }
