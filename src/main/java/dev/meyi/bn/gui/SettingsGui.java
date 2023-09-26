@@ -8,8 +8,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 
 public class SettingsGui extends GuiScreen {
 
@@ -95,11 +98,13 @@ public class SettingsGui extends GuiScreen {
         BazaarNotifier.config.api = key;
         Minecraft.getMinecraft().thePlayer.addChatMessage(
             new ChatComponentText(
-                BazaarNotifier.prefix + EnumChatFormatting.GREEN + "A new api key has been set."));
+                BazaarNotifier.prefix + EnumChatFormatting.GREEN + "A new API key has been set."));
       } else {
+        IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eRequest temporary (72 hour) API keys with §c§lEXTREME§r§e caution, as you may be blacklisted from the Hypixel API at any time."));
+        apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
         Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
             BazaarNotifier.prefix + EnumChatFormatting.RED
-                + "Your api key was not saved because it was invalid."));
+                + "Your API key was not saved because it was invalid." + apiMessage));
       }
 
     } catch (IOException e) {

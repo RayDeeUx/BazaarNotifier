@@ -7,8 +7,11 @@ import dev.meyi.bn.modules.calc.CraftingCalculator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.event.ClickEvent;
+import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.client.config.GuiSlider;
 
 public class ModuleSettingsGui extends GuiScreen {
@@ -94,6 +97,8 @@ public class ModuleSettingsGui extends GuiScreen {
           "Collection Check: " + SettingsGui.getOnOff(BazaarNotifier.config.collectionCheck);
 
       if (BazaarNotifier.config.collectionCheck) {
+        IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eRequest temporary (72 hour) API keys with §c§lEXTREME§r§e caution, as you may be blacklisted from the Hypixel API at any time."));
+        apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
         new Thread(() -> {
           CraftingCalculator.getUnlockedRecipes();
           Button.displayString =
@@ -103,8 +108,8 @@ public class ModuleSettingsGui extends GuiScreen {
             Minecraft.getMinecraft().thePlayer
                 .addChatMessage(new ChatComponentText(BazaarNotifier.prefix +
                     EnumChatFormatting.RED
-                    + "There was an error while enabling the collections check. " +
-                    "Make sure your Collections API is enabled. Try again in a few minutes."));
+                    + "There was an error while enabling the collections check.\n" +
+                    apiMessage));
           }
         }).start();
       }

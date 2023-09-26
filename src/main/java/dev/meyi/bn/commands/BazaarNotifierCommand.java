@@ -17,6 +17,7 @@ import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.text.WordUtils;
 
 
@@ -47,6 +48,8 @@ public class BazaarNotifierCommand extends CommandBase {
   @Override
   public void processCommand(ICommandSender ics, String[] args) {
     if (ics instanceof EntityPlayer) {
+      IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eRequest temporary (72 hour) API keys with §c§lEXTREME§r§e caution, as you may be blacklisted from the Hypixel API at any time."));
+      apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
       EntityPlayer player = (EntityPlayer) ics;
       if (args.length >= 1 && args[0].equalsIgnoreCase("api")) {
         if (args.length == 2) {
@@ -55,24 +58,24 @@ public class BazaarNotifierCommand extends CommandBase {
             if (Utils.validateApiKey()) {
               player.addChatMessage(new ChatComponentText(
                   BazaarNotifier.prefix + EnumChatFormatting.RED
-                      + "Your api key has been set."));
+                      + "Your API key has been set."));
               BazaarNotifier.config.api = args[1];
               BazaarNotifier.activeBazaar = true;
             } else {
               player.addChatMessage(new ChatComponentText(
                   BazaarNotifier.prefix + EnumChatFormatting.RED
-                      + "Your api key is invalid. Please run /api new to get a fresh api key & use that in /bn api (key)"));
+                      + "Your API key is invalid." + apiMessage));
             }
           } catch (IOException e) {
             player.addChatMessage(new ChatComponentText(
                 BazaarNotifier.prefix + EnumChatFormatting.RED
-                    + "An error occurred when trying to set your api key. Please re-run the command to try again."));
+                    + "An error occurred when trying to set your API key." + apiMessage));
             e.printStackTrace();
           }
         } else {
           player.addChatMessage(new ChatComponentText(
               BazaarNotifier.prefix + EnumChatFormatting.RED
-                  + "Run /bn api (key) to set your api key. Do /api if you need to get your api key."));
+                  + "Run /bn api (key) to set your API key. Do /api if you need to get your API key." + apiMessage));
         }
       } else if (args.length > 0 && args[0].equalsIgnoreCase("reset")) {
         if (args.length == 1 || args[1].equalsIgnoreCase("all")) {

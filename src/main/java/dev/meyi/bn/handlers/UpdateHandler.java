@@ -15,6 +15,7 @@ import net.minecraft.event.ClickEvent;
 import net.minecraft.event.ClickEvent.Action;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.apache.commons.io.IOUtils;
@@ -130,9 +131,11 @@ public class UpdateHandler {
           }
 
           if (BazaarNotifier.config.api.isEmpty() && !BazaarNotifier.apiKeyDisabled) {
+            IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eRequest temporary (72 hour) API keys with §c§lEXTREME§r§e caution, as you may be blacklisted from the Hypixel API at any time."));
+            apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                 BazaarNotifier.prefix + EnumChatFormatting.RED
-                    + "The mod doesn't have access to a valid api key yet. Please run /bn api (key) to set your key"));
+                    + "The mod doesn't have access to a valid API key yet." + apiMessage));
           }
         } catch (IOException e) {
           e.printStackTrace();
