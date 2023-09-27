@@ -131,7 +131,7 @@ public class UpdateHandler {
           }
 
           if (BazaarNotifier.config.api.isEmpty() && !BazaarNotifier.apiKeyDisabled) {
-            IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eRequest temporary (72 hour) API keys with §c§lEXTREME§r§e caution, as you may be blacklisted from the Hypixel API at any time."));
+            IChatComponent apiMessage = new ChatComponentText(("\n" + BazaarNotifier.prefix + "§cThe Hypixel API no longer relies on API keys. Read more here: §r§c§nhttps://hypixel.net/threads/5364455/§r§c.\n§eNot to worry though! BazaarNotifier only relies on the Hypixel Public API for most of its features; the API key was only necessary for collection checks (which has been disabled permanently)."));
             apiMessage.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://hypixel.net/threads/5364455/"));
             Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(
                 BazaarNotifier.prefix + EnumChatFormatting.RED
